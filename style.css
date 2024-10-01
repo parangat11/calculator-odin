@@ -1,0 +1,37 @@
+* {
+    margin: 0;
+}
+
+.calculator {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.2px;
+}
+
+.display {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.numbers .set div, .additional-utils div, .operators div {
+    padding: 20px;
+    font-size: 20px;
+    margin: 2px;
+    border: 3px solid black;
+}
+
+.numbers .set div {
+    background-color: aquamarine;
+}
+
+.set {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.num-0 {
+    box-sizing: border-box;
+    width: 112px;
+}
