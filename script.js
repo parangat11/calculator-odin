@@ -41,5 +41,7 @@ function operate(firstNumber, secondNumber, operator) {
             return multiply(firstNumber, secondNumber);
         case '%':
             return modulo(firstNumber, secondNumber);
+        default:
+            ;
     }
 }
