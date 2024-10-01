@@ -29,12 +29,6 @@ calci.addEventListener('click', (e) => {
     display.textContent = displayValue;
 });
 
-// document.addEventListener('DOMContentLoaded', (e) => {
-//     const decimal = document.querySelector('.decimal');
-//     const num0 = document.querySelector('.num-0');
-//     decimal.style.width = 2 * num0.style.width;
-// })
-
 function operate(firstNumber, secondNumber, operator) {
     switch(operate) {
         case '+':
