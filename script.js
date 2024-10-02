@@ -123,5 +123,6 @@ function evaluateAndShow() {
     firstNumber = operate(firstNumber, secondNumber, lastOperator);
     console.log({firstNumber});
     secondNumber = undefined;
+    firstNumber = Math.round(firstNumber * 100) / 100;
     displayValue = firstNumber.toString();
 }
