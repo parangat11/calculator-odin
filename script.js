@@ -4,7 +4,6 @@ let displayValue = '0';
 
 
 // Functions for the operations
-
 function add(firstNumber, secondNumber) {
     return firstNumber + secondNumber;
 }
@@ -79,62 +78,50 @@ calci.addEventListener('click', (e) => {
 for(let i = 0; i < 10; i++) {
     const number = document.querySelector(`#num-${i}`);
     number.addEventListener('click', (e) => {
-        console.log(e.target);
-        console.log({lastOperator});
-        if(lastOperator.length !== 0) {
+        if(displayValue === '0') {
             displayValue = '';
         }
-        if(displayValue === '0') {
-            displayValue = `${i}`;
+        if(lastOperator.length === 0) {
+            if(firstNumber === undefined) {
+                firstNumber = 0;
+            }
+            firstNumber = firstNumber * 10 + i;
+        } else {
+            if(secondNumber === undefined) {
+                secondNumber = 0;
+                displayValue = '';
+            }
+            secondNumber = secondNumber * 10 + i;
         }
-        else {
-            displayValue += `${i}`;
-        }
-        currentNumber = 10 * currentNumber + i;
+        displayValue += `${i}`;
     });
 }
 
 const operation = document.querySelectorAll('.operator');
 operation.forEach((operator) => {
     operator.addEventListener('click', (e) => {
-        if(lastOperator.length !== 0) {
-            if(firstNumber !== undefined) {
-                secondNumber = Number(displayValue);
+        if(operator.textContent === '=') {
+            if(secondNumber === undefined) {
+                displayValue = firstNumber;
             }
-            if(secondNumber !== undefined) {
-                displayValue = operate(firstNumber, secondNumber, lastOperator);
-                console.log({displayValue});
-                displayValue = displayValue.toString();
+            else {
+                evaluateAndShow();
             }
-            lastOperator = operator.textContent;
-            console.log("hereeee: " + displayValue);
+            return ;
         }
-        if(operator.textContent !== '=') {
-            console.log('ch');
-            if(firstNumber === undefined) {
-                firstNumber = currentNumber;
-                currentNumber = 0;
-                lastOperator = operator.textContent;
-            }
-            else if(secondNumber === undefined) {
-                secondNumber = currentNumber;
-                let result = operate(firstNumber, secondNumber, lastOperator);
-                lastOperator = operator.textContent;
-                currentNumber = 0;
-                secondNumber = undefined;
-                firstNumber = secondNumber;
-                displayValue = result.toString();
-            }
+        if(secondNumber === undefined) {
+            lastOperator = operator.textContent;
         }
         else {
-            // if(secondNumber === undefined) {
-            //     if(firstNumber === undefined) {
-            //         reset();
-            //     }
-            //     else {
-
-            //     }
-            // }
+            evaluateAndShow();
+            lastOperator = operator.textContent;
         }
     })
 });
+
+function evaluateAndShow() {
+    firstNumber = operate(firstNumber, secondNumber, lastOperator);
+    console.log({firstNumber});
+    secondNumber = undefined;
+    displayValue = firstNumber.toString();
+}
