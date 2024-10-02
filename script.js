@@ -67,7 +67,6 @@ ac.addEventListener('click', () => {
 });
 
 // Logic to retrieve the numbers from DOM.
-
 const display = document.querySelector('.display');
 const calci = document.querySelector('.calculator');
 
@@ -85,16 +84,26 @@ for(let i = 0; i < 10; i++) {
             if(firstNumber === undefined) {
                 firstNumber = 0;
             }
-            firstNumber = firstNumber * 10 + i;
+            firstNumber = changeNumber(firstNumber, i);
+            console.log('it is' + firstNumber);
         } else {
             if(secondNumber === undefined) {
                 secondNumber = 0;
                 displayValue = '';
             }
-            secondNumber = secondNumber * 10 + i;
+            secondNumber = changeNumber(secondNumber, i);
         }
         displayValue += `${i}`;
     });
+}
+
+function changeNumber(number, i) {
+    if(number >= 0) {
+        number = number * 10 + i;
+    } else {
+        number = number * 10 - i;   
+    }
+    return number;
 }
 
 const operation = document.querySelectorAll('.operator');
@@ -126,3 +135,19 @@ function evaluateAndShow() {
     firstNumber = Math.round(firstNumber * 100) / 100;
     displayValue = firstNumber.toString();
 }
+
+
+// Sign change button functionality
+const sign = document.querySelector('#sign');
+sign.addEventListener('click', () => {
+    console.log({firstNumber});
+    if(secondNumber !== undefined) {
+        secondNumber = -secondNumber;
+        displayValue = secondNumber.toString();
+    } else if(firstNumber !== undefined){
+        firstNumber = -firstNumber;
+        displayValue = firstNumber.toString();
+    }
+    console.log({firstNumber});
+    console.log(displayValue);
+});
