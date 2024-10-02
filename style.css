@@ -2,17 +2,35 @@
     margin: 0;
 }
 
+body {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
 .calculator {
     display: flex;
+    background-color: black;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     gap: 0.2px;
+    width: max-content;
+    margin-top: 100px;
+    padding: 5px;
+    border: 3px solid black;
 }
 
 .display {
+    background-color: rgb(194, 191, 191);
+    border: 4px solid black;
     font-size: 40px;
     font-weight: bold;
+    box-sizing: border-box;
+    width: 273px;
+    display: flex;
+    padding-right: 5px;
+    justify-content: flex-end;
 }
 
 .numbers {
@@ -40,7 +58,16 @@
     justify-content: space-evenly;
 }
 
-.num-0 {
+#num-0 {
     box-sizing: border-box;
-    width: 112px;
+    width: 135px;
 }
+
+#ac, #modulo, #sign {
+    background-color: aqua;
+}
+
+.calculator .numbers .set .operator {
+    background-color: skyblue;
+}
+
