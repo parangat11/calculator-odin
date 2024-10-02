@@ -57,6 +57,7 @@ function reset() {
     secondNumber = undefined;
     currentNumber = 0;
     currentOperator = '';
+    lastOperator = '';
     displayValue = '0';
 }
 
@@ -78,6 +79,11 @@ calci.addEventListener('click', (e) => {
 for(let i = 0; i < 10; i++) {
     const number = document.querySelector(`#num-${i}`);
     number.addEventListener('click', (e) => {
+        console.log(e.target);
+        console.log({lastOperator});
+        if(lastOperator.length !== 0) {
+            displayValue = '';
+        }
         if(displayValue === '0') {
             displayValue = `${i}`;
         }
@@ -85,34 +91,39 @@ for(let i = 0; i < 10; i++) {
             displayValue += `${i}`;
         }
         currentNumber = 10 * currentNumber + i;
-        console.log(currentNumber);
     });
 }
 
 const operation = document.querySelectorAll('.operator');
 operation.forEach((operator) => {
-    operator.addEventListener('click', () => {
-        console.log('ch');
-        lastOperator = operator.textContent;
+    operator.addEventListener('click', (e) => {
+        if(lastOperator.length !== 0) {
+            if(firstNumber !== undefined) {
+                secondNumber = Number(displayValue);
+            }
+            if(secondNumber !== undefined) {
+                displayValue = operate(firstNumber, secondNumber, lastOperator);
+                console.log({displayValue});
+                displayValue = displayValue.toString();
+            }
+            lastOperator = operator.textContent;
+            console.log("hereeee: " + displayValue);
+        }
         if(operator.textContent !== '=') {
+            console.log('ch');
             if(firstNumber === undefined) {
                 firstNumber = currentNumber;
                 currentNumber = 0;
+                lastOperator = operator.textContent;
             }
             else if(secondNumber === undefined) {
                 secondNumber = currentNumber;
                 let result = operate(firstNumber, secondNumber, lastOperator);
                 lastOperator = operator.textContent;
-                console.log({operator});
-                console.log({firstNumber});
-                console.log({secondNumber});
-                console.log({currentNumber});
-                console.log('result is ' + result);
                 currentNumber = 0;
                 secondNumber = undefined;
                 firstNumber = secondNumber;
                 displayValue = result.toString();
-                // displayValue = result.toString();
             }
         }
         else {
